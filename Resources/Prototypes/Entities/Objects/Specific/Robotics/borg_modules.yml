@@ -149,6 +149,19 @@
     - HandheldStationMapUnpowered
 
 - type: entity
+  id: BorgModuleJetpack
+  parent: [ BaseBorgModule, BaseProviderBorgModule ]
+  name: Jetpack cyborg module
+  components:
+  - type: Sprite
+    layers:
+    - state: generic
+    - state: icon-gps
+  - type: ItemBorgModule
+    items:
+    - JetpackBlue
+
+- type: entity
   id: BorgModuleRadiationDetection
   parent: [ BaseBorgModule, BaseProviderBorgModule ]
   name: radiation detection cyborg module

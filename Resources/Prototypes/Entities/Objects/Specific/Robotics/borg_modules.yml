@@ -151,7 +151,7 @@
 - type: entity
   id: BorgModuleJetpack
   parent: [ BaseBorgModule, BaseProviderBorgModule ]
-  name: Jetpack cyborg module
+  name: jetpack cyborg module
   components:
   - type: Sprite
     layers:
@@ -159,7 +159,7 @@
     - state: icon-gps
   - type: ItemBorgModule
     items:
-    - JetpackBlue
+    - JetpackFuelFilled
 
 - type: entity
   id: BorgModuleRadiationDetection

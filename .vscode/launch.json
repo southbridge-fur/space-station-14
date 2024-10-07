@@ -14,6 +14,15 @@
             "stopAtEntry": false
         },
         {
+            "name": "Client (Tools)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Client/Content.Client.dll",
+            "args": "--configuration Tools",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
             "name": "Client (Compatibility renderer)",
             "type": "coreclr",
             "request": "launch",
@@ -28,6 +37,15 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/Content.Server/Content.Server.dll",
             "args": [],
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Server (Tools)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Server/Content.Server.dll",
+            "args": "--configuration Tools",
             "console": "integratedTerminal",
             "stopAtEntry": false
         },
@@ -48,6 +66,14 @@
             "configurations": [
                 "Server",
                 "Client"
+            ],
+            "preLaunchTask": "build"
+        },
+        {
+            "name": "Server/Client (Tools)",
+            "configurations": [
+                "Server (Tools)",
+                "Client (Tools)"
             ],
             "preLaunchTask": "build"
         }

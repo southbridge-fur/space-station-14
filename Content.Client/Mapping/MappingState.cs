@@ -99,6 +99,8 @@ public sealed class MappingState : GameplayStateBase
         context.AddFunction(ContentKeyFunctions.MappingRemoveDecal);
         context.AddFunction(ContentKeyFunctions.MappingCancelEraseDecal);
         context.AddFunction(ContentKeyFunctions.MappingOpenContextMenu);
+        content.AddFunction(ContentKeyFunctions.MappingStartCopySelection);
+        content.AddFunction(ContentKeyFunctions.MappingPasteFromClipboard);
 
         Screen.DecalSystem = _decal;
         Screen.Prototypes.SearchBar.OnTextChanged += OnSearch;
@@ -114,6 +116,9 @@ public sealed class MappingState : GameplayStateBase
         Screen.EraseEntityButton.OnToggled += OnEraseEntityPressed;
         Screen.EraseDecalButton.OnToggled += OnEraseDecalPressed;
         _placement.PlacementChanged += OnPlacementChanged;
+
+        Screen.Copy.OnToggled += OnCopyPressed;
+        Screen.Copy.OnToggled += OnPastePressed;
 
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.MappingUnselect, new PointerInputCmdHandler(HandleMappingUnselect, outsidePrediction: true))

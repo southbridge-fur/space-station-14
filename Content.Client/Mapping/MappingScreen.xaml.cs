@@ -98,6 +98,7 @@ public sealed partial class MappingScreen : InGameScreen
         Delete.Texture.TexturePath = "/Textures/Interface/eraser.svg.png";
         Flip.Texture.TexturePath = "/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png";
         Flip.OnPressed += args => FlipSides();
+        // todo: find textures for copy and paste
     }
 
     public void FlipSides()

@@ -117,8 +117,8 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction MappingCancelEraseDecal = "MappingCancelEraseDecal";
         public static readonly BoundKeyFunction MappingOpenContextMenu = "MappingOpenContextMenu";
 
-        public static readonly BoundKeyFunction MappingStartCopySelection = "MappingStartCopySelection"
-
-        public static readonly BoundKeyFunction MappingPasteFromClipboard = "MappingPasteFromClipboard"
+        public static readonly BoundKeyFunction MappingStartCopySelection = "MappingStartCopySelection";
+        public static readonly BoundKeyFunction MappingEndCopySelection = "MappingEndCopySelection";
+        public static readonly BoundKeyFunction MappingPasteFromClipboard = "MappingPasteFromClipboard";
     }
 }

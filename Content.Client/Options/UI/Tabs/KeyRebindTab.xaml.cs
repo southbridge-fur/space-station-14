@@ -258,6 +258,9 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(EngineKeyFunctions.EditorRotateObject);
             AddButton(ContentKeyFunctions.EditorFlipObject);
             AddButton(ContentKeyFunctions.EditorCopyObject);
+            AddButton(ContentKeyFunctions.MappingStartCopySelection);
+            AddButton(ContentKeyFunctions.MappingEndCopySelection);
+            AddButton(ContentKeyFunctions.MappingPasteFromClipboard);
 
             AddHeader("ui-options-header-dev");
             AddButton(EngineKeyFunctions.ShowDebugConsole);

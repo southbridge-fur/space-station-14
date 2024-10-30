@@ -584,3 +584,16 @@ binds:
   type: State
   key: MouseRight
   canFocus: true
+- function: MappingStartCopySelection
+  type: State
+  key: C
+  mod1: Control
+  canFocus: true
+- function: MappingEndCopySelection
+  type: State
+  key: MouseLeft
+- function: MappingPasteFromClipboard
+  type: State
+  key: V
+  mod1: Control
+  canFocus: true

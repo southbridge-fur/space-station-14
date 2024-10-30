@@ -135,6 +135,7 @@ public sealed class MappingState : GameplayStateBase
             .Bind(ContentKeyFunctions.MappingPick, new PointerInputCmdHandler(HandlePick, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingStartCopySelection, new PointerInputCmdHandler(_clipboard.HandleStartCopy, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingEndCopySelection, new PointerInputCmdHandler(_clipboard.HandleEndCopy, outsidePrediction: true))
+            .Bind(ContentKeyFunctions.MappingPasteFromClipboard, new PointerInputCmdHandler(_clipboard.HandlePaste, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingRemoveDecal, new PointerInputCmdHandler(HandleEditorCancelPlace, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingCancelEraseDecal, new PointerInputCmdHandler(HandleCancelEraseDecal, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingOpenContextMenu, new PointerInputCmdHandler(HandleOpenContextMenu, outsidePrediction: true))
@@ -651,7 +652,6 @@ public sealed class MappingState : GameplayStateBase
     private void OnCopyPressed(ButtonEventArgs args)
     {
         if (args.Button.Pressed)
-
             EnableCopy();
         else
             DisableCopy();

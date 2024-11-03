@@ -53,9 +53,6 @@ public sealed class MappingState : GameplayStateBase
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private EntityMenuUIController _entityMenuController = default!;
-
-    private Clipboard _clipboard = default!;
-
     private DecalPlacementSystem _decal = default!;
     private SpriteSystem _sprite = default!;
     private TransformSystem _transform = default!;
@@ -104,9 +101,6 @@ public sealed class MappingState : GameplayStateBase
         context.AddFunction(ContentKeyFunctions.MappingRemoveDecal);
         context.AddFunction(ContentKeyFunctions.MappingCancelEraseDecal);
         context.AddFunction(ContentKeyFunctions.MappingOpenContextMenu);
-        context.AddFunction(ContentKeyFunctions.MappingStartCopySelection);
-        context.AddFunction(ContentKeyFunctions.MappingEndCopySelection);
-        context.AddFunction(ContentKeyFunctions.MappingPasteFromClipboard);
 
         Screen.DecalSystem = _decal;
         Screen.Prototypes.SearchBar.OnTextChanged += OnSearch;
@@ -124,8 +118,6 @@ public sealed class MappingState : GameplayStateBase
 
         _placement.PlacementChanged += OnPlacementChanged;
 
-        Screen.Copy.OnToggled += OnCopyPressed;
-        Screen.Paste.OnToggled += OnPastePressed;
 
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.MappingUnselect, new PointerInputCmdHandler(HandleMappingUnselect, outsidePrediction: true))
@@ -133,9 +125,6 @@ public sealed class MappingState : GameplayStateBase
             .Bind(ContentKeyFunctions.MappingEnablePick, new PointerStateInputCmdHandler(HandleEnablePick, HandleDisablePick, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingEnableDelete, new PointerStateInputCmdHandler(HandleEnableDelete, HandleDisableDelete, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingPick, new PointerInputCmdHandler(HandlePick, outsidePrediction: true))
-            .Bind(ContentKeyFunctions.MappingStartCopySelection, new PointerInputCmdHandler(_clipboard.HandleStartCopy, outsidePrediction: true))
-            .Bind(ContentKeyFunctions.MappingEndCopySelection, new PointerInputCmdHandler(_clipboard.HandleEndCopy, outsidePrediction: true))
-            .Bind(ContentKeyFunctions.MappingPasteFromClipboard, new PointerInputCmdHandler(_clipboard.HandlePaste, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingRemoveDecal, new PointerInputCmdHandler(HandleEditorCancelPlace, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingCancelEraseDecal, new PointerInputCmdHandler(HandleCancelEraseDecal, outsidePrediction: true))
             .Bind(ContentKeyFunctions.MappingOpenContextMenu, new PointerInputCmdHandler(HandleOpenContextMenu, outsidePrediction: true))
@@ -190,9 +179,6 @@ public sealed class MappingState : GameplayStateBase
         _placement.PlacementChanged -= OnPlacementChanged;
         _prototypeManager.PrototypesReloaded -= OnPrototypesReloaded;
 
-        Screen.Copy.OnToggled -= OnCopyPressed;
-        Screen.Paste.OnToggled -= OnPastePressed;
-
         UserInterfaceManager.ClearWindows();
         _loadController.UnloadScreen();
         UserInterfaceManager.UnloadScreen();
@@ -206,9 +192,6 @@ public sealed class MappingState : GameplayStateBase
         context.RemoveFunction(ContentKeyFunctions.MappingRemoveDecal);
         context.RemoveFunction(ContentKeyFunctions.MappingCancelEraseDecal);
         context.RemoveFunction(ContentKeyFunctions.MappingOpenContextMenu);
-        context.RemoveFunction(ContentKeyFunctions.MappingStartCopySelection);
-        context.RemoveFunction(ContentKeyFunctions.MappingEndCopySelection);
-        context.RemoveFunction(ContentKeyFunctions.MappingPasteFromClipboard);
 
         _overlays.RemoveOverlay<MappingOverlay>();
 
@@ -223,8 +206,6 @@ public sealed class MappingState : GameplayStateBase
         _setup = true;
 
         _entityMenuController = UserInterfaceManager.GetUIController<EntityMenuUIController>();
-
-        _clipboard = new Clipboard();
 
         _decal = _entityManager.System<DecalPlacementSystem>();
         _sprite = _entityManager.System<SpriteSystem>();
@@ -649,24 +630,6 @@ public sealed class MappingState : GameplayStateBase
         ToggleCollapse(button);
     }
 
-    private void OnCopyPressed(ButtonEventArgs args)
-    {
-        if (args.Button.Pressed)
-            EnableCopy();
-        else
-            DisableCopy();
-
-    }
-
-    private void OnPastePressed(ButtonEventArgs args)
-    {
-        if (args.Button.Pressed)
-            EnablePaste();
-        else
-            DisablePaste();
-
-    }
-
     private void OnPickPressed(ButtonEventArgs args)
     {
         if (args.Button.Pressed)
@@ -774,29 +737,6 @@ public sealed class MappingState : GameplayStateBase
         DisableEraser();
     }
 
-    private void EnableCopy()
-    {
-        Screen.UnPressActionsExcept(Screen.Copy);
-        State = CursorState.Copy;
-    }
-
-    private void DisableCopy()
-    {
-        Screen.Copy.Pressed = false;
-        State = CursorState.None;
-    }
-
-    private void EnablePaste()
-    {
-        Screen.UnPressActionsExcept(Screen.Paste);
-        State = CursorState.Paste;
-    }
-
-    private void DisablePaste()
-    {
-        Screen.Paste.Pressed = false;
-        State = CursorState.None;
-    }
     private bool HandleMappingUnselect(in PointerInputCmdArgs args)
     {
         if (Screen.Prototypes.Selected is not { Prototype.Prototype: DecalPrototype })
@@ -995,8 +935,6 @@ public sealed class MappingState : GameplayStateBase
     {
         None,
         Pick,
-        Delete,
-        Copy,
-        Paste
+        Delete
     }
 }

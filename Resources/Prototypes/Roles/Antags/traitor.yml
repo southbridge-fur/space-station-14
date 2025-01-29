@@ -22,6 +22,15 @@
     jumpsuit: ClothingUniformJumpsuitOperative
     mask: CigaretteSyndicate
 
+# Syndicate Starting Gear - Agent Dakka (mothroach)
+- type: startingGear
+  id: SyndicateOperativeGearMonkey
+  equipment:
+    head: ClothingHeadHatOutlawHat
+    mask:
+
+
+
 # Syndicate Operative Outfit - Barratry
 - type: startingGear
   id: SyndicateOperativeGearExtremelyBasic

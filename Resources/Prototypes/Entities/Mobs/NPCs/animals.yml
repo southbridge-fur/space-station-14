@@ -431,9 +431,9 @@
     - id: FoodMeatSlime
 
 - type: entity
-  name: mothroach
+  name: mothroachBase
   parent: MobCockroach
-  id: MobMothroach
+  id: MobBaseMothroach
   description: This is the adorable by-product of multiple attempts at genetically mixing mothpeople with cockroaches.
   components:
   - type: GhostRole
@@ -595,6 +595,70 @@
             sprite: Mobs/Animals/mothroach/displacement.rsi
             state: neck
 
+- type: entity
+  name: mothroach
+  parent: MobeBaseMothroach
+  id: MobMothroach
+  - type: GhostRole
+    makeSentient: true
+    allowSpeech: true
+    allowMovement: true
+    name: ghost-role-information-mothroach-name
+    description: ghost-role-information-mothroach-description
+    rules: ghost-role-information-freeagent-rules
+    mindRoles:
+    - MindRoleGhostRoleFreeAgent
+
+
+- type: entity
+  name: Agent Dakka
+  parent: MobMothroach
+  id: MobMothroachSyndicate
+  description: Harbinger of death, destroyer of shoes, 100% pat-able
+  components:
+  - type: Speech
+    speechVerb: Moth
+    allowedEmotes: ['Chitter', 'Squeak']
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Body
+    prototype: SyndicateMothroach
+  - type: GhostTakeoverAvailable
+  - type: Inventory
+    speciesId: hamster
+    templateId: syndicateCritter
+    displacements:
+      head:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: head
+      mask:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: mask
+      suitstorage:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: suitstorage
+      eyes:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: eyes
+      neck:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: neck
+      ears:
+        sizeMaps:
+          32:
+            sprite: Mobs/Animals/mothroach/displacement.rsi
+            state: ears
 
 # Note that the mallard duck is actually a male drake mallard, with the brown duck being the female variant of the same species, however ss14 lacks sex specific textures
 # The white duck is more akin to a pekin or call duck.
@@ -1297,7 +1361,6 @@
     normalState: Monkey_burning
   - type: InteractionPopup
     successChance: 0.9
-    interactSuccessString: petting-success-monkey
     interactFailureString: petting-failure-monkey
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:

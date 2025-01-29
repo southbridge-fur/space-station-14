@@ -11,3 +11,24 @@
         liver: OrganAnimalLiver
         heart: OrganAnimalHeart
         kidneys: OrganAnimalKidneys
+
+- type: body
+  id: SyndicateMothroach
+  name: "SyndicateMothroach"
+  root: torso
+  slots:
+    torso:
+      part: TorsoAnimal
+      organs:
+        lungs: OrganAnimalLungs
+        stomach: OrganMothStomach
+        liver: OrganAnimalLiver
+        heart: OrganAnimalHeart
+        kidneys: OrganAnimalKidneys
+      connections:
+      - right_hand
+      - left_hand
+    right_hand:
+      part: RightHandMoth
+    left_hand:
+      part: LeftHandMoth
